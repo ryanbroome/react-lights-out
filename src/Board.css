@@ -1,3 +1,7 @@
 .Board {
   margin: 0 auto;
 }
+
+#Table-title {
+  text-align: center;
+}
