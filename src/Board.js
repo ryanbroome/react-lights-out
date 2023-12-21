@@ -33,8 +33,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard(chance = chanceLightStartsOn) {
     let initialBoard = [];
-    //? TODO: create array-of-arrays of true/false values
-    // determine true or false based on percent chance vs random number
+    // True returned chance times
     function isLit() {
       let test = Math.random();
       return test <= chance;
@@ -66,12 +65,9 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
         }
       };
 
-      //?! TODO: Make a (deep) copy of the oldBoard
       const boardCopy = oldBoard.map((row) => [...row]);
 
-      //?! TODO: in the copy, flip this cell and the cells around it
       flipCell(y, x, boardCopy);
-
       flipCell(y, x + 1, boardCopy);
       flipCell(y, x - 1, boardCopy);
       flipCell(y + 1, x, boardCopy);
@@ -80,7 +76,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       return boardCopy;
     });
   }
-  //? TODO
+
   if (hasWon()) {
     return <div>You Won!</div>;
   }
@@ -98,23 +94,20 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   }
   // Playing around with adding buttons to change difficulty
   return (
-    <table className="Board">
-      <tbody>
-        <tr id="Table-title">
-          <th>
-            <button onClick={() => setBoard(createBoard(0.7))}>Hard</button>
-          </th>
-          <th>Lights Out!</th>
-          <th>
-            <button onClick={() => setBoard(createBoard(0.1))}>Easy</button>
-          </th>
-        </tr>
-        {tblBoard}
-      </tbody>
-    </table>
+    <>
+      <h2 className="Board-title">Lights Out!</h2>
+      <table className="Board">
+        <tbody>
+          <tr>{tblBoard}</tr>
+        </tbody>
+      </table>
+      <button onClick={() => setBoard(createBoard(0.7))}>More</button>
+
+      <button onClick={() => setBoard(createBoard(0.1))}>Less</button>
+    </>
   );
 }
 
-Board.defaultProps = { nrows: 8, ncols: 8, chanceLightStartsOn: 0.2 };
+Board.defaultProps = { nrows: 5, ncols: 5, chanceLightStartsOn: 0.2 };
 
 export default Board;

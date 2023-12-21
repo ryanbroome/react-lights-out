@@ -2,6 +2,7 @@
   margin: 0 auto;
 }
 
-#Table-title {
+.Board-title>th {
   text-align: center;
+
 }
