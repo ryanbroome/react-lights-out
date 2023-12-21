@@ -46,13 +46,10 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     return initialBoard;
   }
 
-  // check all values are false in our board arrays
   function hasWon() {
-    //? TODO: check the board in state to determine whether the player has won.
-    // check every value in every row in  board for false values
-    return board.every((row) => row.every((value) => value === false));
+    return board.every((row) => row.every((value) => value === !value));
   }
-
+  // create new copy of board, update it with cell flips by coordinates then use it to update state
   function flipCellsAround(coord) {
     setBoard((oldBoard) => {
       const [y, x] = coord.split("-").map(Number);
@@ -76,33 +73,31 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       return boardCopy;
     });
   }
-
+  // check for winner
   if (hasWon()) {
     return <div>You Won!</div>;
   }
 
   let tblBoard = [];
-
+  // create rows of table
   for (let y = 0; y < nrows; y++) {
     let row = [];
+    // push cells into rows of table
     for (let x = 0; x < ncols; x++) {
       let coord = `${y}-${x}`;
       row.push(<Cell key={coord} isLit={board[y][x]} flipCellsAroundMe={(evt) => flipCellsAround(coord)} />);
     }
-
+    // push rows into tableBoard
     tblBoard.push(<tr key={y}>{row}</tr>);
   }
-  // Playing around with adding buttons to change difficulty
+  //render rows of cells in table below
   return (
     <>
       <h2 className="Board-title">Lights Out!</h2>
       <table className="Board">
-        <tbody>
-          <tr>{tblBoard}</tr>
-        </tbody>
+        <tbody>{tblBoard}</tbody>
       </table>
       <button onClick={() => setBoard(createBoard(0.7))}>More</button>
-
       <button onClick={() => setBoard(createBoard(0.1))}>Less</button>
     </>
   );
