@@ -102,7 +102,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       <tbody>
         <tr id="Table-title">
           <th>
-            <button onClick={() => setBoard(createBoard(1))}>Hard</button>
+            <button onClick={() => setBoard(createBoard(0.7))}>Hard</button>
           </th>
           <th>Lights Out!</th>
           <th>
@@ -115,6 +115,6 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   );
 }
 
-Board.defaultProps = { nrows: 3, ncols: 3, chanceLightStartsOn: 0.2 };
+Board.defaultProps = { nrows: 8, ncols: 8, chanceLightStartsOn: 0.2 };
 
 export default Board;
